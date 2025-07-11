@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import './App.css';
 
 function App() {
   const[notes,setNotes] = useState([]);
@@ -36,9 +37,8 @@ function App() {
     setNotes(notes.filter(note => note._id !== id));
   }
   return (
-    <>
       <div className='container'>
-          <h1>My notes 📝</h1>
+          <h1>My Notes 📝</h1>
 
           <form onSubmit={handleSubmit}>
             <input type="text" placeholder='Title'value={title} onChange={(e)=>setTitle(e.target.value)}required/>
@@ -54,7 +54,6 @@ function App() {
             </li>)}
           </ul>
       </div>
-    </>
   )
 }
 
