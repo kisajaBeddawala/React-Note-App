@@ -1,22 +1,30 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+require('dotenv').config();
+
+const db = process.env.MONGO_URI;
+const port = process.env.PORT || 5000;
 
 const app = express();
+
 app.use(cors());
 app.use(express.json());
 
-mongoose.connect('mongodb+srv://kbe8601:hi2BX4mugQSKHuiq@cluster0.umjrnvb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0',{
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(()=>console.log("MongoDB Atlas connected")).catch((err)=>console.log(err));
+// MongoDB Connection
+mongoose.connect(db, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error(err));
 
-app.use('/api/notes',require('./routes/notes'));
-// app.get('/',(req,res)=>{
-//     res.send("server is working");
-// });
+// Temporary test route
+app.use('/api/notes', require('./routes/notes'));
 
-app.listen(5000,()=>console.log("Server running on port 5000"));
 
-//hi2BX4mugQSKHuiq
-//mongodb+srv://kbe8601:hi2BX4mugQSKHuiq@cluster0.umjrnvb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+// Start the server
+app.listen(5000, () => {
+  console.log(`Server running on port ${port}`);
+});
+
+
